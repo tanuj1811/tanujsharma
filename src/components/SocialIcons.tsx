@@ -61,7 +61,7 @@ const SocialIcons = () => {
 
   return (
     <div className="icons-section">
-      <div className="social-icons" data-cursor="icons" id="social">
+      <div className="social-icons" data-cursor="disable" id="social">
         {socialLinks.map((item) => {
           const Icon = item.icon;
           return (

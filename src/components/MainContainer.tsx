@@ -4,6 +4,7 @@ import SocialIcons from "./SocialIcons";
 import HomeSection from "./sections/Home";
 import Career from "./sections/Career";
 import Projects from "./sections/Projects";
+import ProjectsPrinciples from "./sections/ProjectsPrinciples";
 import Contact from "./sections/Contact";
 import TechStack from "./sections/TechStack";
 import { NAV_SECTIONS } from "@/utils/constant";
@@ -21,8 +22,9 @@ const MainContainer = ({ children }: { children: React.ReactNode }) => {
       />
       <HomeSection />
       <Career />
-      <Projects />
       <TechStack />
+      <Projects />
+      <ProjectsPrinciples />
       <Contact />
       {children}
       {/* <Cursor />

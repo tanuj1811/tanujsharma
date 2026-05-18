@@ -5,7 +5,7 @@ import { FiDownload } from "react-icons/fi";
 import signImg from "@/assets/imgs/sign.png";
 import { contactSocials, PERSONAL } from "@/utils/constant";
 
-const accent = "var(--primary-blue)";
+// const accent = "var(--primary-blue)";
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -55,14 +55,14 @@ export default function Contact() {
         }}
       />
 
-      <div
+      {/* <div
         className="absolute left-0 top-0 h-px w-52"
         style={{ background: `linear-gradient(to right, ${accent}, transparent)` }}
       />
       <div
         className="absolute left-0 top-0 h-52 w-px"
         style={{ background: `linear-gradient(to bottom, ${accent}, transparent)` }}
-      />
+      /> */}
 
       <div className="relative z-10 w-full max-w-[1180px] mx-auto">
         {/* <h2

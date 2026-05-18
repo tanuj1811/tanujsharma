@@ -14,6 +14,7 @@ import { SiReact, SiTypescript } from "react-icons/si";
 import {
   SiNextdotjs, SiVuedotjs, SiJavascript, SiHtml5, SiCss, SiSass,
   SiJquery, SiRedux, SiPython, SiFlask, SiSanic, SiPostgresql, SiElasticsearch,
+  SiNodedotjs, SiMongodb, SiGit, SiDocker, SiFigma, SiPostman, SiNginx,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 import pathVisualizerImg from "@/assets/imgs/pathVisualizeImg.png";
@@ -47,6 +48,7 @@ export const NAV_SECTIONS = [
   { id: "home",       label: "Home"       },
   { id: "about",      label: "About"      },
   { id: "experience", label: "Experience" },
+  { id: "techstack",  label: "Tech Stack" },
   { id: "projects",   label: "Projects"   },
   { id: "contact",    label: "Contact"    },
 ];
@@ -141,34 +143,51 @@ interface TechItem {
 
 export const techStackCategories: { name: string; items: TechItem[] }[] = [
   {
-    name: "Frontend",
+    name: "Backend Lib/Framework",
     items: [
-      { label: "React JS",    icon: SiReact,      color: "#61DAFB" },
-      { label: "Next JS",     icon: SiNextdotjs,  color: "#ffffff" },
-      { label: "Vue JS",      icon: SiVuedotjs,   color: "#4FC08D" },
-      { label: "TypeScript",  icon: SiTypescript, color: "#3178C6" },
-      { label: "JavaScript",  icon: SiJavascript, color: "#F7DF1E" },
-      { label: "HTML5",       icon: SiHtml5,      color: "#E34F26" },
-      { label: "CSS3",        icon: SiCss,        color: "#1572B6" },
-      { label: "SCSS",        icon: SiSass,       color: "#CC6699" },
-      { label: "jQuery",      icon: SiJquery,     color: "#0769AD" },
-      { label: "Redux",       icon: SiRedux,      color: "#764ABC" },
-      { label: "React Hooks", icon: SiReact,      color: "#00BFFF" },
-    ],
-  },
-  {
-    name: "Backend",
-    items: [
+      { label: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
       { label: "Python", icon: SiPython, color: "#3776AB" },
       { label: "Flask",  icon: SiFlask,  color: "#ffffff" },
       { label: "Sanic",  icon: SiSanic,  color: "#FF8C42" },
     ],
   },
   {
-    name: "Database & Search",
+    name: "Frontend Lib/Framework",
+    items: [
+      { label: "React JS",    icon: SiReact,      color: "#61DAFB" },
+      { label: "Next JS",     icon: SiNextdotjs,  color: "#ffffff" },
+      { label: "Vue JS",      icon: SiVuedotjs,   color: "#4FC08D" },
+      { label: "SCSS",        icon: SiSass,       color: "#CC6699" },
+      { label: "jQuery",      icon: SiJquery,     color: "#0769AD" },
+      { label: "Redux",       icon: SiRedux,      color: "#764ABC" },
+    ],
+  },
+  {
+    name: "Language",
+    items: [
+      { label: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { label: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { label: "Python",     icon: SiPython,     color: "#3776AB" },
+      { label: "HTML5",      icon: SiHtml5,      color: "#E34F26" },
+      { label: "CSS3",       icon: SiCss,        color: "#1572B6" },
+    ],
+  },
+  {
+    name: "Database",
     items: [
       { label: "PostgreSQL",    icon: SiPostgresql,    color: "#4169E1" },
+      { label: "MongoDB",       icon: SiMongodb,       color: "#47A248" },
       { label: "ElasticSearch", icon: SiElasticsearch, color: "#00BFB3" },
+    ],
+  },
+  {
+    name: "Other Software Tools",
+    items: [
+      { label: "Git",      icon: SiGit,      color: "#F05032" },
+      { label: "Docker",   icon: SiDocker,   color: "#2496ED" },
+      { label: "Nginx",    icon: SiNginx,    color: "#009639" },
+      { label: "Postman",  icon: SiPostman,  color: "#FF6C37" },
+      { label: "Figma",    icon: SiFigma,    color: "#A259FF" },
     ],
   },
 ];

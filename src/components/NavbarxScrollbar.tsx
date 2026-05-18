@@ -188,6 +188,7 @@ export default function NavbarxScrollbar({
   const reduced = usePrefersReducedMotion();
   const { activeId, setActiveId } = useActiveSection(sections, onSectionChange);
   const scrollProgress = useScrollProgress();
+  const navScrollSettleTimeoutRef = useRef<number | null>(null);
 
   const [expanded, setExpanded] = useState(false);
   const isDragging = useRef(false);
@@ -256,14 +257,37 @@ export default function NavbarxScrollbar({
     };
   }, [activeId]);
 
+  useEffect(() => {
+    return () => {
+      if (navScrollSettleTimeoutRef.current != null) {
+        window.clearTimeout(navScrollSettleTimeoutRef.current);
+      }
+    };
+  }, []);
+
   /* ---------- Drag via pointer events (no compounding transforms) ---------- */
 
   const scrollToSection = useCallback(
     (id: string) => {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: reduced ? "auto" : "smooth",
-        block: "start",
-      });
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
+
+        // Pin/sticky sections can end a smooth scroll slightly off target.
+        // Apply one corrective snap to guarantee section-top alignment.
+        if (!reduced) {
+          if (navScrollSettleTimeoutRef.current != null) {
+            window.clearTimeout(navScrollSettleTimeoutRef.current);
+          }
+          navScrollSettleTimeoutRef.current = window.setTimeout(() => {
+            const target = document.getElementById(id);
+            if (!target) return;
+            const top = target.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top, behavior: "auto" });
+            navScrollSettleTimeoutRef.current = null;
+          }, 650);
+        }
+      }
       setActiveId(id);
       onSectionChange?.(id);
     },

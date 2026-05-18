@@ -1,102 +1,349 @@
-.techstack-category {
-  width: 100%;
-  margin-bottom: 60px;
+/* ── Section header ─────────────────────────────────────────────── */
+.ts-header {
+  padding: 96px 0 56px;
 }
 
-.techstack-category-label {
+.ts-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0 20px;
+}
+
+/* Clip wrapper for the heading reveal */
+.ts-head-clip {
+  overflow: hidden;
+  padding-bottom: 6px;
+  margin-bottom: -6px;
+}
+
+.ts-head-text {
+  font-size: clamp(40px, 6vw, 82px);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0 0 24px;
+}
+
+.ts-head-text span {
+  color: var(--primary-blue);
+}
+
+.ts-desc {
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.6;
+  margin: 0 0 36px;
+  max-width: 480px;
+}
+
+/* ── Stats row ───────────────────────────────────────────────────── */
+.ts-stats {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 24px;
 }
 
-.techstack-category-label span {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--primary-blue);
-  white-space: nowrap;
-}
-
-.techstack-category-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, rgba(0, 191, 255, 0.35), transparent);
-}
-
-.techstack-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.tech-card {
+.ts-stat {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.ts-stat-num {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #fff;
+  line-height: 1;
+}
+
+.ts-stat-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.ts-stat-sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+/* ── Legacy overline (no longer rendered, kept for safety) ──────── */
+.techstack-overline {
+  display: none;
+}
+
+.techstack-stage {
+  --tech-hover-accent: #7dd3fc;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 108px;
-  padding: 18px 12px;
-  border-radius: 14px;
-  background: linear-gradient(
-    145deg,
-    rgba(65, 105, 225, 0.07) 0%,
-    rgba(0, 191, 255, 0.04) 100%
+  flex-wrap: nowrap;
+  gap: 0;
+  padding: 22px 8px 14px;
+  perspective: 1500px;
+  overflow: visible;
+}
+
+.tech-exp-card {
+  width: clamp(240px, 17.4vw, 300px);
+  min-height: 270px;
+  padding: 16px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.08), transparent 48%),
+    linear-gradient(160deg, #121212 0%, #090909 62%, #070707 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  transform-origin: center center;
+  /* GSAP owns transform and opacity — only transition visual non-transform props */
+  transition:
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.36s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+}
+
+/* Cursor spotlight — follows --mouse-x/y set by GSAP mousemove handler */
+.tech-exp-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    color-mix(in srgb, var(--tech-hover-accent) 22%, transparent) 0%,
+    transparent 55%
   );
-  border: 1px solid rgba(0, 191, 255, 0.14);
-  cursor: default;
-  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease,
-    background 0.28s ease;
-  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.42s ease;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
-.tech-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(0, 191, 255, 0.48);
-  background: linear-gradient(
-    145deg,
-    rgba(65, 105, 225, 0.14) 0%,
-    rgba(0, 191, 255, 0.09) 100%
-  );
-  box-shadow: 0 0 22px rgba(0, 191, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.35);
+.tech-exp-card + .tech-exp-card {
+  margin-left: -64px;
 }
 
-.tech-card svg {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  transition: filter 0.28s ease;
+/* Prevent hover interference during deck reveal animation */
+.techstack-stage.deck-animating .tech-exp-card {
+  pointer-events: none;
 }
 
-.tech-card:hover svg {
-  filter: drop-shadow(0 0 8px currentColor);
+/* Hover visual state — transforms handled by GSAP, only visual props here */
+.tech-exp-card.is-hovered {
+  box-shadow: 0 30px 68px rgba(0, 0, 0, 0.46);
+  border-color: color-mix(in srgb, var(--tech-hover-accent) 46%, #ffffff 14%);
 }
 
-.tech-card-label {
-  font-size: 11.5px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.65);
-  text-align: center;
-  line-height: 1.3;
-  letter-spacing: 0.3px;
+.tech-exp-card.is-hovered::before {
+  opacity: 1;
+}
+
+.tech-exp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  gap: 12px;
+}
+
+.tech-exp-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.tech-exp-card-logo {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d5d5d5;
+}
+
+.tech-exp-card-logo svg {
+  width: 22px;
+  height: 22px;
+  filter: grayscale(1) brightness(1.18);
+  opacity: 0.62;
+  transition: filter 0.35s cubic-bezier(0.2, 0, 0, 1), opacity 0.35s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.tech-exp-card.is-hovered .tech-exp-card-logo svg {
+  filter: grayscale(0) brightness(1);
+  opacity: 1;
+}
+
+.tech-exp-card-company {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 540;
+  letter-spacing: 0.008em;
+}
+
+.tech-exp-date {
+  font-size: 0.67rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.28);
+  text-align: right;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: color 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.tech-exp-card.is-hovered .tech-exp-date {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.tech-exp-role {
+  font-size: clamp(1.06rem, 1.34vw, 1.3rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.2;
+  margin: 0 0 7px;
+  letter-spacing: -0.01em;
+  transition: color 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.tech-exp-card.is-hovered .tech-exp-role {
+  color: color-mix(in srgb, var(--tech-hover-accent) 70%, #ffffff 30%);
+}
+
+.tech-exp-desc {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.43);
+  margin: 0 0 12px;
+  transition: color 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.tech-exp-card.is-hovered .tech-exp-desc {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.tech-exp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tech-exp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 0.63rem;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.tech-exp-pill svg {
+  width: 12px;
+  height: 12px;
+  filter: grayscale(1) brightness(1.2);
+  opacity: 0.74;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.tech-exp-card.is-hovered .tech-exp-pill {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.tech-exp-card.is-hovered .tech-exp-pill svg {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.tech-exp-pill-more {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+@media (max-width: 1540px) {
+  .tech-exp-card {
+    width: clamp(230px, 18vw, 285px);
+  }
+
+  .tech-exp-card + .tech-exp-card {
+    margin-left: -56px;
+  }
+}
+
+@media (max-width: 1320px) {
+  .techstack-stage {
+    flex-wrap: wrap;
+    gap: 14px;
+    perspective: none;
+  }
+
+  .tech-exp-card {
+    width: min(500px, 100%);
+    min-height: 0;
+    /* Reset any GSAP transforms on small screens */
+    transform: none !important;
+  }
+
+  .tech-exp-card + .tech-exp-card {
+    margin-left: 0;
+  }
+
+  .tech-exp-card.is-hovered {
+    transform: translateY(-7px) scale(1.015) !important;
+  }
 }
 
 @media (max-width: 768px) {
-  .tech-card {
-    width: 88px;
-    padding: 14px 10px;
+  .techstack-overline {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 16px;
   }
-  .tech-card svg {
-    width: 30px;
-    height: 30px;
-  }
-  .tech-card-label {
-    font-size: 10px;
-  }
-  .techstack-grid {
+
+  .techstack-stage {
     gap: 10px;
+    padding-top: 2px;
+  }
+
+  .tech-exp-card {
+    width: 100%;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .tech-exp-card-header {
+    margin-bottom: 9px;
+  }
+
+  .tech-exp-role {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .tech-exp-desc {
+    font-size: 0.74rem;
+    margin-bottom: 10px;
+  }
+
+  .tech-exp-date {
+    font-size: 0.62rem;
   }
 }
